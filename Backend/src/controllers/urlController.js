@@ -7,9 +7,17 @@ export async function shortenUrl(req, res) {
     try {
         const { originalUrl } = req.body;
 
+        // Validate the original URL format
+        const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
+
         // Validate the original URL
         if (!originalUrl) {
             return res.status(400).json({ error: "Original URL is required" });
+        }
+
+        // Validate the URL format
+        if (!urlPattern.test(originalUrl)) {
+            return res.status(400).json({ error: "Invalid URL format. Please enter a valid http or https URL." });
         }
 
         // Create the shortened URL
