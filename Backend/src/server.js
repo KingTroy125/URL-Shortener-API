@@ -9,16 +9,12 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// POST endpoint
-app.post("/api/shorten", (req, res) => {
-    res.status(200).send("URL shortened successfully!");
-});
+// Middleware to parse JSON bodies
+app.use(express.json());
 
-// GET endpoint
-app.get("/api/:shortCode", (req, res) => {
-    res.status(200).json({ 
-        message: "URL retrieved successfully!", 
-    });
+// Basic route to check if the server is running
+app.get("/", (req, res) => {
+    res.send("API running");
 });
 
 // Start Server
