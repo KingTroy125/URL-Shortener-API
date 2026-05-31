@@ -1,7 +1,9 @@
+import ShortenHero from '@/components/shortenhero';
+
 export default function Home() {
   return (
     <main>
-        <div>API URL Shortener</div>
+        <ShortenHero />
     </main>
   );
 }
