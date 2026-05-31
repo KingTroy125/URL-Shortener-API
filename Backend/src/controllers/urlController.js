@@ -24,7 +24,7 @@ export async function shortenUrl(req, res) {
         const shortUrl = await createShortUrl(originalUrl);
 
         res.status(201).json({
-            shortUrl: `http://localhost:5000/${shortUrl.shortCode}`,
+            shortUrl: `${process.env.BASE_URL}/${shortUrl.shortCode}`,
         });
 
         // Log the shortened URL to the console
