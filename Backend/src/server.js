@@ -13,7 +13,11 @@ connectDB();
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(
+    cors({
+        origin: [process.env.FRONTEND_URL]
+    })
+);
 // Middleware to parse JSON bodies
 app.use(express.json());
 
