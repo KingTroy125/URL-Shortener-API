@@ -26,6 +26,11 @@ export async function shortenUrl(req, res) {
         res.status(201).json({
             shortUrl: `${process.env.BASE_URL}/${shortUrl.shortCode}`,
         });
+         
+        // helpful for testing to confirm the API is working
+        res.status(200).send({
+            message: "API is working",
+        })
 
         // Log the shortened URL to the console
         } catch (error) {
