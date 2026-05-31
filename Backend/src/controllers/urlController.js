@@ -3,12 +3,18 @@ import { createShortUrl, getOriginalUrl } from "../services/urlService.js";
 // Controller function to handle URL shortening
 
 export async function shortenUrl(req, res) {
-
     try {
-        const { originalUrl } = req.body;
+        const { originalUrl } = req.body || {};
 
         // Validate the original URL format
         const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
+
+        // Allow POST /shorten to be used as a simple API health test.
+        if (!req.body || Object.keys(req.body).length === 0) {
+            return res.status(200).json({
+                message: "API is running",
+            });
+        }
 
         // Validate the original URL
         if (!originalUrl) {
@@ -23,21 +29,14 @@ export async function shortenUrl(req, res) {
         // Create the shortened URL
         const shortUrl = await createShortUrl(originalUrl);
 
-        res.status(201).json({
+        return res.status(201).json({
             shortUrl: `${process.env.BASE_URL}/${shortUrl.shortCode}`,
         });
-         
-        // helpful for testing to confirm the API is working
-        res.status(200).send({
-            message: "API is working",
-        })
-
-        // Log the shortened URL to the console
-        } catch (error) {
-            res.status(500).json({
-                error: "Internal server error" 
-            });
-        }
+    } catch (error) {
+        return res.status(500).json({
+            error: "Internal server error"
+        });
+    }
 }
 
 export async function redirectUrl(req, res) {
