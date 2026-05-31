@@ -11,7 +11,6 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Enable CORS for all routes
 app.use(cors());
@@ -26,7 +25,4 @@ app.get("/", (req, res) => {
     res.send("API running");
 });
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`Server is running on  http://localhost:${PORT}`);
-});
+export default app;
