@@ -29,8 +29,10 @@ export default function ShortenHero() {
       return;
     }
 
+    // Trim the URL to remove leading/trailing whitespace
     const urlToShorten = url.trim();
 
+    // Validate the URL format before sending the request
     if (!isValidUrl(urlToShorten)) {
       setError('Invalid URL format. Please enter a valid http or https URL.');
       return;
@@ -38,6 +40,7 @@ export default function ShortenHero() {
 
     setIsLoading(true);
 
+    // Send the URL to the backend for shortening
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/shorten`,
@@ -52,10 +55,12 @@ export default function ShortenHero() {
         }
       );
 
+      // Check if the response is successful
       if (!response.ok) {
         throw new Error('Failed to shorten URL');
       }
 
+      // Parse the response to get the shortened URL
       const data = await response.json();
       setShortenedUrl(data.shortUrl);
     } catch (error) {
@@ -66,6 +71,7 @@ export default function ShortenHero() {
     }
   };
 
+  // Handle copying the shortened URL to clipboard
   const handleCopy = async () => {
     if (!shortenedUrl) return;
 
@@ -78,6 +84,7 @@ export default function ShortenHero() {
     }, 2000);
   };
 
+  // Handle "Enter" key press to trigger URL shortening
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleShorten();
