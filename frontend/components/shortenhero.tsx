@@ -46,13 +46,15 @@ export default function ShortenHero() {
       // Parse the response to get the shortened URL
       const data = await response.json();
 
+      // Check if the response is not OK and set the error message accordingly
       if (!response.ok) {
-        setError(data.message);
+        setError(data.error);
         return;
       }
 
+      // Check if the shortened URL is present in the response
       if (!data.shortUrl) {
-        setError('Invalid response from server');
+        setError(data.error);
         return;
       }
       
