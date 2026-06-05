@@ -13,12 +13,6 @@ export default function ShortenHero() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState('');
 
-  // Validate URL format (basic check)
-  const isValidUrl = (originalUrl: string): boolean => {
-    const urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
-    return urlPattern.test(originalUrl);
-  };
-
   // Handle URL shortening
   const handleShorten = async () => {
     setError('');
@@ -31,12 +25,6 @@ export default function ShortenHero() {
 
     // Trim the URL to remove leading/trailing whitespace
     const urlToShorten = url.trim();
-
-    // Validate the URL format before sending the request
-    if (!isValidUrl(urlToShorten)) {
-      setError('Invalid URL format. Please enter a valid http or https URL.');
-      return;
-    }
 
     setIsLoading(true);
 
@@ -55,13 +43,19 @@ export default function ShortenHero() {
         }
       );
 
-      // Check if the response is successful
-      if (!response.ok) {
-        throw new Error('Failed to shorten URL');
-      }
-
       // Parse the response to get the shortened URL
       const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+
+      if (!data.shortUrl) {
+        setError('Invalid response from server');
+        return;
+      }
+      
       setShortenedUrl(data.shortUrl);
     } catch (error) {
       console.error(error);

@@ -7,9 +7,9 @@ export async function createShortUrl(originalUrl) {
     // Generate a unique short code
     const shortCode = generateShortCode();
 
-    // Set the expiration date for the shortened URL (e.g., 30 days from now)
+    // Set the expiration date for the shortened URL (e.g., 10 days from now)
     const expiresAt = new Date(
-        Date.now() + 30 * 24 * 60 * 60 * 1000 // Expires in 30 days
+        Date.now() + 10 * 24 * 60 * 60 * 1000 // Expires in 10 days
     );
 
     // Create the shortened URL in the database
