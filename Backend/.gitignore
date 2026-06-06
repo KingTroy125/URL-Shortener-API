@@ -1,5 +1,9 @@
 # Node modules
 node_modules
 
+# Testing files
+src/utils/test/
+src/utils/generateShortCode1.js
+
 # Environment variables
 .env

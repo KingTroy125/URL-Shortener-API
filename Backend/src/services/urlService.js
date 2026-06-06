@@ -5,7 +5,22 @@ import { generateShortCode } from "../utils/generateShortCode.js";
 export async function createShortUrl(originalUrl) {
 
     // Generate a unique short code
-    const shortCode = generateShortCode();
+    //const shortCode = generateShortCode();
+
+    let attempt = 0;
+    let shortCode;
+
+    // ** Hash-based approach **
+    while (true) {
+        shortCode = generateShortCode(originalUrl, attempt);
+
+        // Check if the short code already exists in the database
+        const existing = await ShortUrl.findOne({ shortCode });
+        if (!existing) {
+            break;
+        }
+        attempt++;
+    }
 
     // Set the expiration date for the shortened URL (e.g., 10 days from now)
     const expiresAt = new Date(
