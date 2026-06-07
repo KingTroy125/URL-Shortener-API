@@ -15,7 +15,7 @@ function toBase62(buffer) {
 }
 
 // Utility function to generate a Base62 hash-based short code
-export function generateShortCode(url = "", attempt = 0) {
+export default function generateShortCode(url = "", attempt = 0) {
     const seed = url || Math.random().toString(36); // if no url is provided, use a random string
     const input = `${seed}-${attempt}`; // create the input string with the seed and attempt number
 

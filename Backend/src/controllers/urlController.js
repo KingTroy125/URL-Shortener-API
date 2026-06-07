@@ -33,8 +33,10 @@ export async function shortenUrl(req, res) {
             shortUrl: `${process.env.BASE_URL}/${shortUrl.shortCode}`,
         });
     } catch (error) {
+        console.error("Error in shortenUrl:", error);  // Add this
         return res.status(500).json({
-            error: "Internal server error"
+            error: "Internal server error",
+            details: error.message  // Add this temporarily
         });
     }
 }
@@ -63,8 +65,10 @@ export async function redirectUrl(req, res) {
         // Redirect to the original URL
         res.redirect(originalUrl.originalUrl);
     } catch (error) {
+        console.error("Error in redirectUrl:", error);  // Add this
         res.status(500).json({
-            error: "Internal server error"
+            error: "Internal server error",
+            details: error.message  // Add this temporarily
         });
     }
 }
