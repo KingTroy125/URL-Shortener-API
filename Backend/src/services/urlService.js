@@ -1,11 +1,8 @@
-import prisma from "../prisma/prismaClient.js";
-import { generateShortCode } from "../utils/generateShortCode.js";
+import ShortUrl from "../models/ShortUrl.js";
+import generateShortCode from "../utils/generateShortCode.js";
 
 // Function to create a shortened URL
 export async function createShortUrl(originalUrl) {
-
-    // Generate a unique short code
-    //const shortCode = generateShortCode();
 
     let attempt = 0;
     let shortCode;
@@ -14,10 +11,9 @@ export async function createShortUrl(originalUrl) {
     while (true) {
         shortCode = generateShortCode(originalUrl, attempt);
 
-        // Check if the short code already exists in the database
-        const existing = await prisma.shortUrl.findUnique({
-            where: { shortCode }
-        });
+        // Check if the short code already exists in the database (MONGOOSE SYNTAX)
+        const existing = await ShortUrl.findOne({ shortCode });
+        
         if (!existing) {
             break;
         }
@@ -29,24 +25,20 @@ export async function createShortUrl(originalUrl) {
         Date.now() + 10 * 24 * 60 * 60 * 1000 // Expires in 10 days
     );
 
-    // Create the shortened URL in the database
-    const shortUrl = await prisma.shortUrl.create({
-        data: {
-            originalUrl,
-            shortCode,
-            expiresAt,
-            createAt: new Date()
-        }
+    // Create the shortened URL in the database (MONGOOSE SYNTAX)
+    const shortUrl = await ShortUrl.create({
+        originalUrl,
+        shortCode,
+        expiresAt
+        // timestamps: true auto-creates createdAt/updatedAt, no need for createAt
     });
 
     return shortUrl;
 }
 
 export async function getOriginalUrl(shortCode) {
-    // Find the original URL by short code
-    const url = await prisma.shortUrl.findUnique({
-        where: { shortCode }
-    });
+    // Find the original URL by short code (MONGOOSE SYNTAX)
+    const url = await ShortUrl.findOne({ shortCode });
 
     return url;
 }
