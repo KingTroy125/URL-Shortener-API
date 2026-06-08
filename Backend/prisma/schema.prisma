@@ -4,12 +4,14 @@ generator client {
 
 datasource db {
   provider = "mongodb"
+  url      = env("MONGO_URI")
 }
 
 model ShortUrl {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   originalUrl String
-  shortCode String @unique
-  expiresAt DateTime
-  createAt DateTime
+  shortCode   String   @unique
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
