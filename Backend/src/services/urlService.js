@@ -31,8 +31,7 @@ export async function createShortUrl(originalUrl) {
         data: {
             originalUrl,
             shortCode,
-            expiresAt,
-            createAt: new Date()
+            expiresAt
         }
     });
 
