@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma/prismaClient.js";
 import generateShortCode from "../utils/generateShortCode.js";
-
-const prisma = new PrismaClient();
 
 // Function to create a shortened URL
 export async function createShortUrl(originalUrl) {
@@ -13,11 +11,10 @@ export async function createShortUrl(originalUrl) {
     while (true) {
         shortCode = generateShortCode(originalUrl, attempt);
 
-        // Check if the short code already exists in the database (PRISMA SYNTAX)
+        // Check if the short code already exists in the database
         const existing = await prisma.shortUrl.findUnique({
             where: { shortCode }
         });
-        
         if (!existing) {
             break;
         }
@@ -29,13 +26,13 @@ export async function createShortUrl(originalUrl) {
         Date.now() + 10 * 24 * 60 * 60 * 1000 // Expires in 10 days
     );
 
-    // Create the shortened URL in the database (PRISMA SYNTAX)
+    // Create the shortened URL in the database
     const shortUrl = await prisma.shortUrl.create({
         data: {
             originalUrl,
             shortCode,
-            expiresAt
-            // createdAt and updatedAt are auto-managed by Prisma
+            expiresAt,
+            createAt: new Date()
         }
     });
 
@@ -43,7 +40,7 @@ export async function createShortUrl(originalUrl) {
 }
 
 export async function getOriginalUrl(shortCode) {
-    // Find the original URL by short code (PRISMA SYNTAX)
+    // Find the original URL by short code
     const url = await prisma.shortUrl.findUnique({
         where: { shortCode }
     });
