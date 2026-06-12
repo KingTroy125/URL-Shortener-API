@@ -1,5 +1,9 @@
 import crypto from "crypto";
 
+// WHY CUSTOM BASE62 IMPLEMENTATION:
+// - Avoids external npm package dependencies
+// - Full control over character ordering and collision handling
+// - Better understanding and maintainability for our team
 // Base62 characters for the short code
 const BASE62_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
