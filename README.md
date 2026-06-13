@@ -23,28 +23,28 @@ The URL Shortener API accepts a long URL via `POST /shorten`, generates a unique
 
 ```mermaid
 flowchart LR
-    Browser(["🌐 Client"])
+    Browser(["Client"])
 
-    subgraph FE ["⚛️ Next.js 16  ·  Vercel"]
+    subgraph FE ["Next.js 16  ·  Vercel"]
         direction TB
         FormUI["URL Input Form"]
         ResultUI["Result Display"]
     end
 
-    subgraph API ["🟢 Express 5  ·  Node.js ≥ 18"]
+    subgraph API ["Express 5  ·  Node.js ≥ 18"]
         direction TB
-        Router["📡 Router\nurlRoutes.js"]
-        Controller["🎛️ Controller\nurlController.js"]
-        Service["⚙️ Service\nurlService.js"]
-        HashFn["🔐 Utility\ngenerateShortCode.js"]
-        Model["🗄️ Model\nShortUrl.js"]
+        Router["Router\nurlRoutes.js"]
+        Controller["Controller\nurlController.js"]
+        Service["Service\nurlService.js"]
+        HashFn["Utility\ngenerateShortCode.js"]
+        Model["Model\nShortUrl.js"]
 
         Router --> Controller --> Service
         Service --> HashFn
         Service --> Model
     end
 
-    MongoDB[("🍃 MongoDB Atlas\nshorturls collection")]
+    MongoDB[("MongoDB Atlas\nshorturls collection")]
 
     Browser -->|HTTPS| FE
     FE -->|POST /shorten| Router
