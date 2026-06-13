@@ -1,0 +1,52 @@
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ShortenedResult } from '../shorten-hero/shortened-result';
+
+describe('ShortenedResult Component', () => {
+  const mockOnCopy = jest.fn();
+
+  const defaultProps = {
+    copied: false,
+    shortenedUrl: 'https://short.est/abc',
+    onCopy: mockOnCopy,
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders shortened URL with correct href and anchor attributes', () => {
+    render(<ShortenedResult {...defaultProps} />);
+
+    const link = screen.getByRole('link', { name: 'https://short.est/abc' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', 'https://short.est/abc');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  test('renders Copy button and copy icon when copied prop is false', () => {
+    render(<ShortenedResult {...defaultProps} copied={false} />);
+
+    const copyButton = screen.getByRole('button', { name: /copy/i });
+    expect(copyButton).toBeInTheDocument();
+    expect(screen.queryByText('Copied!')).not.toBeInTheDocument();
+  });
+
+  test('renders Copied! button and check icon when copied prop is true', () => {
+    render(<ShortenedResult {...defaultProps} copied={true} />);
+
+    const copiedButton = screen.getByRole('button', { name: /copied!/i });
+    expect(copiedButton).toBeInTheDocument();
+    expect(screen.queryByText('Copy')).not.toBeInTheDocument();
+  });
+
+  test('calls onCopy callback when copy button is clicked', () => {
+    render(<ShortenedResult {...defaultProps} />);
+
+    const copyButton = screen.getByRole('button', { name: /copy/i });
+    fireEvent.click(copyButton);
+
+    expect(mockOnCopy).toHaveBeenCalledTimes(1);
+  });
+});
