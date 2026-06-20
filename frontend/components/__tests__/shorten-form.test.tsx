@@ -20,6 +20,7 @@ describe('ShortenForm Component', () => {
     jest.clearAllMocks();
   });
 
+  // Test to check if the component renders correctly with initial state
   test('renders initial state correctly with input and button', () => {
     render(<ShortenForm {...defaultProps} />);
 
@@ -33,6 +34,7 @@ describe('ShortenForm Component', () => {
     expect(screen.queryByText('Shortening...')).not.toBeInTheDocument();
   });
 
+  // Additional tests for the ShortenForm component
   test('renders the input value passed through props', () => {
     render(<ShortenForm {...defaultProps} url="https://example.com" />);
 
@@ -50,6 +52,7 @@ describe('ShortenForm Component', () => {
     expect(mockOnChangeUrl).toHaveBeenCalledWith('https://new-url.com');
   });
 
+  // Test to check if the onShorten callback is triggered when the button is clicked
   test('triggers onShorten callback when clicking the button', () => {
     render(<ShortenForm {...defaultProps} />);
 
@@ -59,6 +62,7 @@ describe('ShortenForm Component', () => {
     expect(mockOnShorten).toHaveBeenCalledTimes(1);
   });
 
+  // Test to check if the onKeyDown callback is triggered when a key is pressed down on the input
   test('triggers onKeyDown callback when key is pressed down on input', () => {
     render(<ShortenForm {...defaultProps} />);
 
@@ -68,6 +72,7 @@ describe('ShortenForm Component', () => {
     expect(mockOnKeyDown).toHaveBeenCalledTimes(1);
   });
 
+  // Test to check if the button is disabled and loading text is shown when isLoading prop is true
   test('disables the button and shows loading text when isLoading is true', () => {
     render(<ShortenForm {...defaultProps} isLoading={true} />);
 
@@ -79,6 +84,7 @@ describe('ShortenForm Component', () => {
     expect(screen.queryByText('Shorten')).not.toBeInTheDocument();
   });
 
+  // Test to check if the error message is displayed when the error prop is provided
   test('displays error message when error prop is provided', () => {
     render(<ShortenForm {...defaultProps} error="An error occurred" />);
 
