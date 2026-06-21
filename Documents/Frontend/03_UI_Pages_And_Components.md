@@ -20,11 +20,8 @@ Responsibilities
 | Components | Responsible for |
 | --- | --- |
 | ShortenHero  | Main page layout |
-| ShortenForm | URL input
-Validation
-Submission |
-| ShortenedResult | Display generated URL
-Copy functionality |
+| ShortenForm | URL input, Validation, Submission |
+| ShortenedResult | Display generated URL, Copy functionality |
 
 ## Accessibility
 
