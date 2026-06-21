@@ -2,8 +2,6 @@
 
 ## Data flow
 
-User action → Next.js Frontend → API request → express backend → mongodb → UI state update
-
 ```mermaid
 flowchart LR
 UA([User action]) --> Frontend[Next.js Frontend]
