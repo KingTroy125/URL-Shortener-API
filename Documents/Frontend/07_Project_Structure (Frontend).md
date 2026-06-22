@@ -6,6 +6,7 @@
 src/
 ├── app/
 ├── components/
+│ ├──__test__
 │ ├── ShortenHero.tsx
 │ ├── ShortenForm.tsx
 │ └── ShortenedResult.tsx
