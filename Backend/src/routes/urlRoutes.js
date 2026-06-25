@@ -2,6 +2,7 @@ import express from "express";
 
 import { shortenUrl, redirectUrl } from "../controllers/urlController.js";
 
+// router is the instance of the express router
 const router = express.Router();
 
 // POST endpoint for shortening URLs
