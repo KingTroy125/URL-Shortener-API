@@ -4,6 +4,7 @@ import generateShortCode from "../utils/generateShortCode.js";
 // Function to create a shortened URL
 export async function createShortUrl(originalUrl) {
 
+    // Initialize attempt and short code variables
     let attempt = 0;
     let shortCode;
 
