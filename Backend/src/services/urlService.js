@@ -8,7 +8,7 @@ export async function createShortUrl(originalUrl) {
     let attempt = 0;
     let shortCode;
 
-    // ** Hash-based approach **
+    // Hash-based approach
     while (true) {
         shortCode = generateShortCode(originalUrl, attempt);
 
