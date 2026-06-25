@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ShortenForm } from '../shorten-hero/shorten-form';
 
+// Mock jest-dom for testing purposes
 describe('ShortenForm Component', () => {
   const mockOnChangeUrl = jest.fn();
   const mockOnKeyDown = jest.fn();
@@ -16,6 +17,7 @@ describe('ShortenForm Component', () => {
     onShorten: mockOnShorten,
   };
 
+  // Reset mock functions before each test
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -34,7 +36,7 @@ describe('ShortenForm Component', () => {
     expect(screen.queryByText('Shortening...')).not.toBeInTheDocument();
   });
 
-  // Additional tests for the ShortenForm component
+  // Test to check if the input value is displayed correctly
   test('renders the input value passed through props', () => {
     render(<ShortenForm {...defaultProps} url="https://example.com" />);
 
@@ -42,6 +44,7 @@ describe('ShortenForm Component', () => {
     expect(input).toHaveValue('https://example.com');
   });
 
+  // Test to check if the onChangeUrl callback is triggered when input text changes
   test('triggers onChangeUrl callback when input text changes', () => {
     render(<ShortenForm {...defaultProps} />);
 

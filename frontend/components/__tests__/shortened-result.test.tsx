@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ShortenedResult } from '../shorten-hero/shortened-result';
 
+// Mock jest-dom for testing purposes
+
 describe('ShortenedResult Component', () => {
   const mockOnCopy = jest.fn();
 
@@ -15,6 +17,7 @@ describe('ShortenedResult Component', () => {
     jest.clearAllMocks();
   });
 
+  // Test to check if the shortened URL is displayed correctly
   test('renders shortened URL with correct href and anchor attributes', () => {
     render(<ShortenedResult {...defaultProps} />);
 
@@ -25,6 +28,7 @@ describe('ShortenedResult Component', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
+  // Test to check if the Copy button is displayed correctly
   test('renders Copy button and copy icon when copied prop is false', () => {
     render(<ShortenedResult {...defaultProps} copied={false} />);
 
@@ -33,6 +37,7 @@ describe('ShortenedResult Component', () => {
     expect(screen.queryByText('Copied!')).not.toBeInTheDocument();
   });
 
+  // Test to check if the Copied! button is displayed correctly
   test('renders Copied! button and check icon when copied prop is true', () => {
     render(<ShortenedResult {...defaultProps} copied={true} />);
 
@@ -41,6 +46,7 @@ describe('ShortenedResult Component', () => {
     expect(screen.queryByText('Copy')).not.toBeInTheDocument();
   });
 
+  // Test to check if the onCopy callback is triggered when the copy button is clicked
   test('calls onCopy callback when copy button is clicked', () => {
     render(<ShortenedResult {...defaultProps} />);
 
