@@ -38,6 +38,7 @@ export async function createShortUrl(originalUrl) {
     return shortUrl;
 }
 
+// Function to retrieve the original URL using a short code
 export async function getOriginalUrl(shortCode) {
     // Find the original URL by short code
     const url = await prisma.shortUrl.findUnique({
